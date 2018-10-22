@@ -13,12 +13,14 @@ class SearchPage extends Component {
         searchedBooks: []
     }
 
+    // getting the new shelf assignments to the books
     componentWillReceiveProps = (props) => {
         this.props = props;
         let correctedSearchList = this.setShelfInfo(this.props.books, this.state.searchedBooks);
         this.setState({ searchedBooks: correctedSearchList});
     }
 
+    // assign "none" to non-shelved books
     setShelfInfo = (booksOnShelf, searchedBooks) => {
         const hashTable = {};
         booksOnShelf.forEach( book => hashTable[book.id] = book.shelf);
@@ -35,6 +37,7 @@ class SearchPage extends Component {
     }
 
     search = () => {
+        // for non-truthy or empty query, clear the search results
         if (this.state.query === '') {
             this.setState({searchedBooks: []});
             return;
@@ -42,6 +45,7 @@ class SearchPage extends Component {
 
         BooksAPI.search(this.state.query).then( (response) => {
             let searchedList = [];
+            // update list of books only when response exists and is non-empty
             if (response && response.length) {
                 searchedList = this.setShelfInfo(this.props.books, response);             
             }

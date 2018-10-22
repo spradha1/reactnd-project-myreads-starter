@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+// handles changes to shelves in drop down menu
 
 class Updater extends Component {
     state = {

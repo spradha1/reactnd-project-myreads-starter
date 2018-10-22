@@ -11,6 +11,7 @@ class AllShelves extends Component {
         this.props.onRefresh();
     }
 
+    // categorizing books to the shelves
     update = () => {
         const currently = {
             shelfName: "Currently Reading",

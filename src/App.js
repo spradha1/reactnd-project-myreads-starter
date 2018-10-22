@@ -8,19 +8,14 @@ import SearchPage from './components/SearchPage'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
+
   }
 
   componentDidMount = () => {
     this.refresh();
   }
 
+  // getting all the books on the shelves in case of changes
   refresh = () => {
     BooksAPI.getAll().then( (allBooks) => {
       this.setState({
@@ -29,6 +24,7 @@ class BooksApp extends React.Component {
     });
   }
 
+  // function to change shelves
   switchShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
     .then( (response) => {
@@ -47,6 +43,7 @@ class BooksApp extends React.Component {
     });
   }
 
+  // renders either main or search page
   render() {
     return (
       <div className="app">

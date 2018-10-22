@@ -7,6 +7,7 @@ class Book extends Component {
     }
 
     render () {
+        // getting only existent authors and url
         const authors = this.props.book.authors && this.props.book.authors.join(", ");
         const url = this.props.book.imageLinks && `url(${this.props.book.imageLinks.thumbnail})`;
 
