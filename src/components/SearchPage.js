@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-// import escapeRegExp from 'escape-string-regexp'
 
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book'
-import '../App.css'
 
 class SearchPage extends Component {
 
@@ -30,9 +28,9 @@ class SearchPage extends Component {
         return searchedBooks;
     }
 
-    updateQuery = (query) => {
+    updateQuery = (text) => {
         clearTimeout(this.searchDelay);
-        this.setState({ query: query });
+        this.setState({ query: text });
         this.searchDelay = setTimeout(this.search, 225);
     }
 
@@ -59,21 +57,25 @@ class SearchPage extends Component {
                     <div className="search-books-input-wrapper">
                         <input 
                             type="text"
-                            value={this.state.query.value}
                             placeholder="Search by title or author"
-                            onChange={event => this.updateQuery(event.target.value)} />
+                            onChange={event => this.updateQuery(event.target.value)}
+                            value={this.state.query.value} />
                     </div>
-                    <div className="search-books-results">
+                </div>                
+                <div className="search-books-results">
+                    {!this.state.searchedBooks.length ? (
+                        <p>No matches</p>
+                    ) : (
                         <ol className="books-grid">
                             {this.state.searchedBooks && this.state.searchedBooks.map( (book) => (
-                            <li key={book.id}>
-                                <Book 
-                                    book={book}
-                                    onSwitchShelf={this.props.onSwitchShelf} />
-                            </li>
+                                <li key={book.id}>
+                                    <Book 
+                                        book={book}
+                                        onSwitchShelf={this.props.onSwitchShelf} />
+                                </li>
                             ))}
                         </ol>
-                    </div>
+                    )}
                 </div>
             </div>
         )
